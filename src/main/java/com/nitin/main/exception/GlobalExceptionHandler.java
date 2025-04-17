@@ -14,9 +14,19 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(InsufficientBalanceException.class)
 	public ResponseEntity<ExceptionResponse> insuffecientBalanceExceptionHandler(InsufficientBalanceException ex,
 			WebRequest request) {
-		ExceptionResponse response = new ExceptionResponse(LocalDateTime.now(), ex.getMessage(),
-				request.getDescription(false));
+		ExceptionResponse response = prepareExceptionResponse(ex.getMessage(), request);
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
 
+	}
+
+	@ExceptionHandler(CustomException.class)
+	public ResponseEntity<ExceptionResponse> customExceptionHandler(CustomException ex, WebRequest request,
+			HttpStatus httpStatus) {
+		ExceptionResponse response = prepareExceptionResponse(ex.getMessage(), request);
+		return ResponseEntity.status(httpStatus).body(response);
+	}
+
+	private ExceptionResponse prepareExceptionResponse(String message, WebRequest request) {
+		return new ExceptionResponse(LocalDateTime.now(), message, request.getDescription(false));
 	}
 }
