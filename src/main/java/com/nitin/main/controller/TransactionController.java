@@ -15,7 +15,7 @@ import com.nitin.main.payload.WithdrawalTransactionRecord;
 import com.nitin.main.service.TransactionService;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/transaction")
 public class TransactionController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(TransactionController.class);
 
